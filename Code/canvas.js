@@ -1,11 +1,11 @@
 var canvas = document.getElementById('canvas')
 var c = canvas.getContext('2d')
 
-function Canvas(){
-  this.x = 0
-  this.y = 0
-  this.width = canvas.width
-  this.height = canvas.height
+function Canvas(x,y,width,height){
+  this.x = x
+  this.y = y
+  this.width = width
+  this.height = height
 }
 
 c.mozImageSmoothingEnabled = false;

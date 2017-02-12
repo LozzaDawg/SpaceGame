@@ -35,6 +35,4 @@ function pointWithinBoxFromSeperatePoints(entity,entityx,entityy){
 	entityy > entity.y)
 }
 
-
-
 console.log('Collision data processed.')

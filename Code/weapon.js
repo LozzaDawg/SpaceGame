@@ -14,6 +14,7 @@ function Bullet(width,height,colour,speed,shotDely){
   this.yVel = speed
   this.colour = colour
   this.shotDelay = shotDely
+  this.dead = false
 }
 
 Bullet.prototype.shoot = function(){
@@ -39,8 +40,7 @@ Bullet.prototype.setValues = function(){
 
 Bullet.prototype.render = function(){
   if(collision(collisionCanvas,this)){
-    c.fillStyle = this.colour
-    c.fillRect(this.x,this.y,this.width,this.height)
+    c.drawImage(bulletSpr,this.x,this.y,this.width,this.height)
   }else this.destroy()
 }
 
@@ -49,7 +49,9 @@ Bullet.prototype.destroy = function(){
 }
 
 Bullet.prototype.update = function(){
-  this.render()
+  if(this.dead == false){
+    this.render()
+  }
   this.y+=this.yVel
 }
 

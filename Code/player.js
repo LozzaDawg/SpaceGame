@@ -10,8 +10,8 @@
    this.ammo = ammo
    this.health = 100
    this.maxHealth = 100
-   this.canMove = true
    this.score = 0
+   this.canMove = true
    entities.push(this)
  }
 
@@ -24,7 +24,6 @@
     this.x = canvas.width/2-32
     this.y = canvas.height/1.2
  }
-
 
  Player.prototype.takeDamge = function(dmg){
     this.health -= dmg
@@ -40,13 +39,18 @@
  }
 
  Player.prototype.kill = function(){
+    explosion(500,this.x,this.y)
     this.x = -1000
     this.health = this.maxHealth
-    playable = false
-    endGameScreen = true
+    setTimeout(killmemes,1500)
  }
 
-
+ function killmemes(){
+   storeHeighscores()
+   switchaToStartingGalaxy()
+   playable = false
+   endGameScreen = true
+ }
 
  Player.prototype.addVelocity = function(){
    this.x += this.xVel
@@ -65,7 +69,6 @@
 
  Player.prototype.stopMoveCollision = function (entity){
   if(insideBoxCollision(collisionCanvas, this)==false){
-    this.canMove = false;
     this.setVelToZero();
   }else if(this.canMove == false){
     this.canMove = true;
@@ -73,15 +76,14 @@
  }
 
  Player.prototype.update = function(){
-  if(this.canMove == true){
-    this.addVelocity()
-    this.controls()
-  }
+  this.addVelocity()
+  this.controls()
   this.stopMoveCollision()
   this.friction()
   this.addVelocity()
   this.render()
   this.healthStats()
+  this.changeGals()
  }
 
 

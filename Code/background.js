@@ -6,8 +6,16 @@ var rW = 0
 var qu = 0
 var rxv = 0
 var ryv = 0
-var blue = 230
-var red = 0
+var Galaxy1 = 230
+var Galaxy2 = 230
+var Galaxy3 = 230
+var blood = 0
+var sploshion = 0
+var g1 = true
+var g2 = false
+var g3 = false
+var s1 = false
+var s2 = false
 
 function Particle(x,y,width,height,q){
   this.x = x
@@ -45,50 +53,149 @@ Particle.prototype.update = function(){
 }
 
 Particle.prototype.render = function(){
-  if(collision(collisionCanvas,this)){
-    c.fillStyle = this.color
-    c.fillRect(this.x,this.y,this.width,this.height)
-  }else particles.splice[this,1]
+  c.fillStyle = this.color
+  c.fillRect(this.x,this.y,this.width,this.height)
 }
 
-function makeParticles(NoOfParticles){
+Particle.prototype.OOF = function(){
+  if(collision(collisionCanvas2,this) == false){
+    particles.splice(this,1)
+  }
+}
+
+function makeGalaxyParticles1(NoOfParticles){
   for(var pNo = 0; pNo < NoOfParticles; pNo++){
     var part = new Particle(rX,rY,rW,rW,qu)
-    part.color = 'hsl('+blue+', 100%, 50%)'
+    part.color = 'hsl('+Galaxy1+', 100%, 50%)'
     particles.push(part)
     part.setValues()
     randomise()
   }
 }
 
+function makeGalaxyParticles2(NoOfParticles){
+  for(var pNo = 0; pNo < NoOfParticles; pNo++){
+    var part = new Particle(rX,rY,rW,rW,qu)
+    part.color = 'hsl('+Galaxy2+', 100%, 50%)'
+    particles.push(part)
+    part.setValues()
+    randomise()
+  }
+}
+
+function makeGalaxyParticles3(NoOfParticles){
+  for(var pNo = 0; pNo < NoOfParticles; pNo++){
+    var part = new Particle(rX,rY,rW,rW,qu)
+    part.color = 'hsl('+Galaxy3+', 100%, 50%)'
+    particles.push(part)
+    part.setValues()
+    randomise()
+  }
+}
+
+function switchGalaxy1(NoOfParticles){
+  for(var pNo = 0; pNo < NoOfParticles; pNo++){
+    var part = new Particle(rX,rY,rW,rW,qu)
+    if(Math.random()>0.5){
+      part.color = 'hsl('+Galaxy1+', 100%, 50%)'
+    }else{part.color = 'hsl('+Galaxy2+', 100%, 50%)'}
+    particles.push(part)
+    part.setValues()
+    randomise()
+  }
+}
+
+function switchGalaxy2(NoOfParticles){
+  for(var pNo = 0; pNo < NoOfParticles; pNo++){
+    var part = new Particle(rX,rY,rW,rW,qu)
+    if(Math.random()>0.5){
+      part.color = 'hsl('+Galaxy2+', 100%, 50%)'
+    }else{part.color = 'hsl('+Galaxy3+', 100%, 50%)'}
+    particles.push(part)
+    part.setValues()
+    randomise()
+  }
+}
+
+function switchaToStartingGalaxy(){
+  g1 = true
+  g2 = false
+  g3 = false
+  s1 = false
+  s2 = false
+}
+
+function switchtoGal2(){
+ s1 = true
+ g1 = false
+ setTimeout(start2,2000)
+}
+function start2(){
+  g2 = true
+  s1 = false
+}
+function switchtoGal3(){
+  s2 = true
+  g2 = false
+  setTimeout(start3,2000)
+}
+function start3(){
+  g3 = true
+  s2 = false
+}
+
 function makeBulletHitParticles(NoOfParticles,x,y){
   for(var pNo = 0; pNo < NoOfParticles; pNo++){
     var part2 = new Particle(x,y,rW,rW,qu)
-    part2.color = 'hsl('+red+', 78%, 44%)'
+    part2.color = 'hsl('+blood+', 100%, 47%)'
     particles.push(part2)
     part2.setValues()
     randomise()
   }
 }
 
+function explosion(NoOfParticles,x,y){
+  for(var pNo = 0; pNo < NoOfParticles; pNo++){
+    var part2 = new Particle(x,y,rW,rW,qu)
+    part2.color = 'hsl('+sploshion+', 100%, 47%)'
+    particles.push(part2)
+    part2.setValues()
+    console.log('did a splode')
+    randomise()
+  }
+}
+
 function randomise(){
-  rX = Math.random()*((0+canvas.width/2+5)-(0+canvas.width/2-5))+(0+canvas.width/2-5)
-  rY = Math.random()*((0+canvas.height/2+5)-(0+canvas.height/2-5))+(0+canvas.height/2-5)
+  rX = canvas.width/2
+  rY = 30
   rW = Math.random()*(13-5)-5
   qu = Math.ceil(Math.random()*4)
   rxv = Math.random()*(30-10)-10
   ryv = Math.random()*(30-10)-10
-  blue = Math.ceil(Math.random()*(150-100)-100)
-  red = Math.ceil(Math.random()*43)
+  Galaxy1 = Math.ceil(Math.random()*(150-100)-100)
+  Galaxy2 = Math.ceil(Math.random()*(289-228)-228)
+  Galaxy3 = Math.ceil(Math.random()*1000000)
+  blood = Math.ceil(Math.random()*10)
+  sploshion = Math.ceil(Math.random()*50)
 }
 
 function setBackground(){
   c.fillStyle = 'rgb(37, 37, 37)'
-  c.fillRect(0,0,canvas.width,canvas.height)
-  makeParticles(30)
+  if(g1 == true){
+    makeGalaxyParticles1(30)
+  }else if(s1 == true){
+    switchGalaxy1(30)
+  }else if(g2 == true){
+    makeGalaxyParticles2(30)
+  }else if(s2 == true){
+    switchGalaxy2(30)
+  }else if(g3 == true){
+    makeGalaxyParticles3(30)
+  }
   for(var i = 0; i < particles.length; i++){
     particles[i].update()
     particles[i].render()
+    particles[i].OOF()
   }
 }
 

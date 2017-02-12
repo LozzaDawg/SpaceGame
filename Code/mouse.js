@@ -27,6 +27,10 @@ canvas.addEventListener('mouseup', function(evt) {
     if(pointWithinBoxFromSeperatePoints(menu,mousePos.x,mousePos.y)){
       returnToMenu()
     }
+    if(pointWithinBoxFromSeperatePoints(options,mousePos.x,mousePos.y)){
+      creditScreen = true
+      startGameScreen = false
+    }
   }
 }, false)
 

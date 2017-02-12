@@ -18,9 +18,9 @@ function Particle(x,y,colMin,colMax,dd){
 }
 
 Particle.prototype.randomise = function(colRangeMin,colRangeMax){
-  // this.x = Math.random()*((0+canvas.width/2+5)-(0+canvas.width/2-5))+(0+canvas.width/2-5)
+  this.x = 0//Math.random()*((0+canvas.width/2+5)-(0+canvas.width/2-5))+(0+canvas.width/2-5)
+  this.y = Math.random()*((0+canvas.height/2+5)-(0+canvas.height/2-5))+(0+canvas.height/2-5)
   // this.startX = Math.random()*((0+canvas.width/2+5)-(0+canvas.width/2-5))+(0+canvas.width/2-5)
-  // this.y = Math.random()*((0+canvas.height/2+5)-(0+canvas.height/2-5))+(0+canvas.height/2-5)
   //this.startY = Math.random()*((0+canvas.height/2+5)-(0+canvas.height/2-5))+(0+canvas.height/2-5)
   this.width = Math.random()*(13-5)-5
   this.quadrant = Math.ceil(Math.random()*4)
@@ -31,7 +31,7 @@ Particle.prototype.randomise = function(colRangeMin,colRangeMax){
 
 makeParticles = function(NoP){
   for(var i = 0; i < NoP; i++){
-    var part = new Particle(100,100,0,130,100)
+    var part = new Particle(canvas.width/2,0,0,130,100)
     part.randomise()
     particles.push(part)
 

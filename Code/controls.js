@@ -6,6 +6,7 @@ Player.prototype.controls = function(){
 	if(keys[32]){
 		if(canShoot == true){
     	this.ammo.shoot()
+			shootSound.play()
 		}
 	}
 	//W
